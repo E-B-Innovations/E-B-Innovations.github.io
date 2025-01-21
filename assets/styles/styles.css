@@ -4,11 +4,19 @@
 .bg-darkest {
     background-color: #212529;
 }
-.text-logo {
+.text-sky{
     color: #75c3f7;
 }
 
 .bd-white {
     border-color: #fff;
     border-width: 5px;
+}
+
+.bg-sky {
+    background-color: #75c3f7;
+}
+
+.bg-sun{
+    background-color: #e9b86f;
 }
