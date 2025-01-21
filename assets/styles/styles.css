@@ -1,0 +1,14 @@
+.bg-darkl {
+    background-color: #2a2f34;
+}
+.bg-darkest {
+    background-color: #212529;
+}
+.text-logo {
+    color: #75c3f7;
+}
+
+.bd-white {
+    border-color: #fff;
+    border-width: 5px;
+}
