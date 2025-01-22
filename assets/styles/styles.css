@@ -1,22 +1,24 @@
+
+.text-sky{
+    color: #75c3f7;
+}
+.text-og{
+    color: #1ba095;
+}
+
+/*Background colors*/
+.bg-sky {
+    background-color: #75c3f7;
+}
+.bg-sun{
+    background-color: #e9b86f;
+}
 .bg-darkl {
     background-color: #2a2f34;
 }
 .bg-darkest {
     background-color: #212529;
 }
-.text-sky{
-    color: #75c3f7;
-}
-
-.bd-white {
-    border-color: #fff;
-    border-width: 5px;
-}
-
-.bg-sky {
-    background-color: #75c3f7;
-}
-
-.bg-sun{
-    background-color: #e9b86f;
+.bg-og {
+    background-color: #1ba095;
 }

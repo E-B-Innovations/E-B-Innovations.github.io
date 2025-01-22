@@ -14,7 +14,7 @@
 	<hero class="container-fluid bg-darkl text-white d-flex">
 		<div class="container mt-5">
 			<img class="rounded-4" src="/assets/img/fcom.png" alt="logo-fcom">
-      <h1 class="display-2 mb-3">Procedimientos y guía de ayuda <span class="fw-bold text-sky">PJUD5</span></h1>
+      <h1 class="display-2 mb-3">Procedimientos y guía de ayuda <span class="fw-bold text-og">PJUD5</span></h1>
       <h3 class="pt-3">Estándares de trabajo para el correcto funcionamiento del proyecto PJUD5 de Fcom.</h3>
       <p class="pt-3 pb-3">Creado por: <span class="h6"> Enrique González / Benjamin Loyola </span></p>
 		</div>
@@ -23,11 +23,9 @@
   <!--INDEX-->
   <section class="container text-sky">
     
-    <div class="bd-white mb-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2> Tabla de contenido</h2>
+    <div class="mb-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Tabla de Contenidos</h2>
     </div>
-    
 
     <div class="row">
       <div class="col-md-6">
@@ -59,11 +57,12 @@
   <!--MAIN-->
   <main class="container">
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2 class="mb-4"> Notas</h2>
+    <!--notas-->
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Notas</h2>
+
       <div class="p-2">
-        <h3 class="bg-sky p-2">Ingresa al NAS</h3>
+        <h3 class="bg-og p-2">Ingresa al NAS</h3>
         <div class="m-4">
           <p hidden class="bg-darkl  p-3 "> net use m: "\\nas01.poderjudicial.cl\capj\Informatica\SoportePC\04-PROYECTOS_PJUD4-2\REPOSITORIO MESA DE AYUDA\Repositorio" /user:poderjudicial\jadones_hp Fcom9066819&%$# /persistent:no</p>
           <button class="btn  btn-outline-light copy-btn" data-text='net use m: "\\nas01.poderjudicial.cl\capj\Informatica\SoportePC\04-PROYECTOS_PJUD4-2\REPOSITORIO MESA DE AYUDA\Repositorio" /user:poderjudicial\jadones_hp Fcom9066819&%$# /persistent:no"  '>NAS PJUD4</button>
@@ -90,29 +89,55 @@
       </div>
     </div>
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2>Comentarios</h2>
+    <!--comentarios-->
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Comentarios</h2>
+
+      <div class="container row text-white">
+        <div class="col-4">
+          <h2 class="bg-sun"><span>Planear</span> USUARIO NO CONTESTA:</h2>
+          <p class="bg-og">
+            Se realiza llamado a las XX:XX al numero
+            XXXXX sin respuesta de usuario, se
+            devolvera el llamado en 30 minutos
+          </p>
+          <button class="btn p-1">meme</button>
+        </div>
+
+        <div class="col-4">
+          <h3>meme MEMEME</h3>
+          <p>asldkjasldkjaslkdjalskdja</p>
+        </div>
+
+        <div class="col-4">
+          <h3>meme MEMEME</h3>
+          <p>asldkjasldkjaslkdjalskdja</p>
+        </div>
+
+        <div class="col-4">
+          <h3>meme MEMEME</h3>
+          <p>asldkjasldkjaslkdjalskdja</p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2>Credenciales</h2>
+
+
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Credenciales</h2>
     </div>
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2>Derivaciones</h2>
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Derivaciones</h2>
     </div>
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2>Proxy</h2>
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Proxy</h2>
     </div>
 
-    <div class="bd-white mb-5 mt-5 text-white">
-      <hr class="border-5 bd-white mb-2">
-      <h2>Links</h2>
+    <div class="mb-5 mt-5 text-white">
+      <h2 class="display-5 border-top border-4 mt-5">Links</h2>
     </div>
 
 
@@ -128,7 +153,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   <script>
-     document.querySelectorAll('.copy-btn').forEach(button => {
+    document.querySelectorAll('.copy-btn').forEach(button => {
       button.addEventListener('click', () => {
         const text = button.getAttribute('data-text'); 
         navigator.clipboard.writeText(text)
