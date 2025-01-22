@@ -1,9 +1,20 @@
-
 .text-sky{
     color: #75c3f7;
 }
 .text-og{
     color: #1ba095;
+}
+.text-bl{
+    color: #112A46;
+}
+.text-lt{
+    color: #dee2e6;
+}
+.text-sun{
+    color: #e9b86f;
+}
+.text-skylight{
+    color: #6ea8fe;
 }
 
 /*Background colors*/
@@ -21,4 +32,42 @@
 }
 .bg-og {
     background-color: #1ba095;
+}
+
+/*Tamaños predeterminados*/
+.titulo{
+    height: 70px;
+}
+.parrafo{
+    height: 130px;
+}
+
+@media (max-width: 768px) {
+    .titulo {
+      font-size: 1rem; /* Ajustar el tamaño del título */
+      padding: 10px; /* Reducir el padding */
+    }
+
+    .parrafo {
+      font-size: 0.875rem; /* Reducir el tamaño del texto */
+      line-height: 1.5; /* Ajustar la altura de línea */
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo {
+    font-size: 0.875rem;
+    }
+
+    .parrafo {
+        font-size: 0.75rem;
+    }
+}
+
+.link-color{
+    color: #6ea8fe;
+    text-decoration: none;
+}
+.link-color:hover{
+    text-decoration: underline;
 }
