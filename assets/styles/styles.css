@@ -72,6 +72,14 @@
     text-decoration: underline;
 }
 
+.footer-color{
+    color: #dee2e6;
+    text-decoration: none;
+}
+.footer-color:hover{
+    text-decoration: underline;
+}
+
 .indice {
     background-color: #212529;
     color : #fff;
