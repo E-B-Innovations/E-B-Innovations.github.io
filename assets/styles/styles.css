@@ -100,3 +100,14 @@
 .int {
     font-family: inter;
 }
+
+#scroll-button {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.no-underline {
+    color: #212529;
+    text-decoration: none;
+}
