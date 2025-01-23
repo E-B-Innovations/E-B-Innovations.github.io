@@ -71,3 +71,24 @@
 .link-color:hover{
     text-decoration: underline;
 }
+
+.indice {
+    background-color: #212529;
+    color : #fff;
+    font-family: inter;
+    text-decoration: none;
+    font-weight: bold;
+}
+.indice:hover{
+    background-color: #1ba095;
+}
+
+.mont {
+    font-family: montserrat;
+}
+.pop {
+    font-family: poppins;
+}
+.int {
+    font-family: inter;
+}
