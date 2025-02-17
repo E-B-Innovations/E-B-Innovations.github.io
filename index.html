@@ -537,11 +537,14 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
 <!--Links-->
     <div class="mb-5 mt-5 text-white" id="links">
       <h2 class="display-5 border-top border-4 mt-5">Links</h2>
+      <div>
+        
+      </div>
     </div>
-
-
   </main>
-
+  <div id="scroll-button" class="btn btn-warning position-fixed bottom-0 end-0 m-3" style="display: none; opacity: 0;">
+    <a href="#" role="button" class="no-underline">Inicio</a>
+</div>
   <!--FOOTER-->
   <footer class="py-3 my-0 bg-darkl">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
@@ -574,6 +577,24 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
       }
     });
   });
+  </script>
+  <script>
+ window.onscroll = function() {
+    var scrollButton = document.getElementById("scroll-button");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollButton.style.display = "block";
+        setTimeout(function() {
+            scrollButton.style.opacity = "1";
+        }, 10); // Pequeño retraso para permitir que el cambio de estilo ocurra
+    } else {
+        scrollButton.style.opacity = "0";
+        setTimeout(function() {
+            scrollButton.style.display = "none";
+        }, 500); // Coincide con la duración de la transición de opacidad
+    }
+};
+
+
   </script>
 </body>
 </html>
