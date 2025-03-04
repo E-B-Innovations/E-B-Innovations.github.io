@@ -49,17 +49,6 @@
       <h2 class="display-5 border-top border-4 mt-5 mb-5">Notas</h2>
 
       <div class="p-2 row">
-        <h3 class="bg-og p-2 display-6  rounded border-start border-4 border-info shadow-sm fs-2">Ingresa al NAS</h3>
-        <div class="m-4 col-sm">
-          <p hidden class="bg-darkl  p-3 "> net use m: "\\nas01.poderjudicial.cl\capj\Informatica\SoportePC\04-PROYECTOS_PJUD4-2\REPOSITORIO MESA DE AYUDA\Repositorio" /user:poderjudicial\jadones_hp Fcom9066819&%$# /persistent:no</p>
-          <button class="btn  btn-outline-info copy-btn btn-md" data-text='net use m: "\\nas01.poderjudicial.cl\capj\Informatica\SoportePC\04-PROYECTOS_PJUD4-2\REPOSITORIO MESA DE AYUDA\Repositorio" /user:poderjudicial\jadones_hp Fcom9066819&%$# /persistent:no"  '>NAS PJUD4</button>
-        </div>
-        <div class="m-4 col-sm">
-          <p hidden class="bg-logo p-3"> \\nas01.poderjudicial.cl\CAPJ\Informatica\SoportePC\08-PROYECTO_PJUD5\REPOSITORIO\MESA DE AYUDA</p>
-          <button class="btn  btn-outline-info copy-btn btn-md" data-text="\\nas01.poderjudicial.cl\CAPJ\Informatica\SoportePC\08-PROYECTO_PJUD5\REPOSITORIO\MESA DE AYUDA">NAS PJUD5</button>
-        </div>
-      </div>
-      <div class="p-2 row">
         <h3 class="bg-sun p-2 display-6 rounded border-start border-4 border-warning shadow-sm fs-2">VNC</h3>
         <div class="m-4 col-sm">
           <p hidden>S0p0rt3VnC</p>
@@ -100,7 +89,7 @@ devolvera el llamado en 15 minutos;
         <div class="col-12 col-md-6 col-lg-4">
           <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Planear</span> USUARIO RECOORDINA ATENCION:</h4>
           <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
-Se realiza llamado a las xx:xx, se solicita
+Se realiza llamado a las XX:XX, se solicita
 que la atencion se realice desde las xx:xx
 en adelante;
           </p>
@@ -160,8 +149,8 @@ Dependencia:
         <div class="col-12 col-md-6 col-lg-4">
           <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Planear</span> ENVIAR CORREO MONITO WEB:</h4>
           <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
-Se envía correo a las XX:XX del XX/XX/
-XXXX a registro civil para solicitar codigo
+Se envía correo a las XX:XX del XX/XX/XXXX 
+a registro civil para solicitar codigo
 de activación de Monitoweb. Se indica a
 usuario que debe esperar repuesta para
 continuar con el proceso de configuracion;
@@ -557,14 +546,40 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-  <script>
+<!-- Primer script: Manejo de los botones de copiar con la hora actual -->
+<script>
   document.querySelectorAll('.copy-btn').forEach(button => {
     button.addEventListener('click', () => {
       // Prioriza obtener texto del atributo 'data-text' o del párrafo más cercano dentro del contenedor
-      const text = button.getAttribute('data-text') || 
-                  button.closest('.col-12, .col-md-6, .col-lg-4, .col-lg-6')?.querySelector('p')?.textContent.trim();
+      let text = button.getAttribute('data-text') || 
+                button.closest('.col-12, .col-md-6, .col-lg-4, .col-lg-6')?.querySelector('p')?.textContent.trim();
 
       if (text) {
+        // Obtener la fecha y hora actuales
+        const now = new Date();
+        
+        // Formatear la hora (HH:MM)
+        const hours = String(now.getHours()).padStart(2, '0'); // Asegura 2 dígitos
+        const minutes = String(now.getMinutes()).padStart(2, '0'); // Asegura 2 dígitos
+        const currentTime = `${hours}:${minutes}`;
+
+        // Formatear la fecha (DD/MM/YYYY)
+        const day = String(now.getDate()).padStart(2, '0'); // Día con 2 dígitos
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Mes con 2 dígitos (getMonth() empieza en 0, por eso +1)
+        const year = now.getFullYear(); // Año completo
+        const currentDate = `${day}/${month}/${year}`;
+
+        // Reemplazar "XX:XX" con la hora actual si está presente
+        if (text.includes('XX:XX')) {
+          text = text.replace(/XX:XX/g, currentTime); // Reemplaza todas las instancias de "XX:XX"
+        }
+
+        // Reemplazar "XX/XX/XXXX" con la fecha actual si está presente
+        if (text.includes('XX/XX/XXXX')) {
+          text = text.replace(/XX\/XX\/XXXX/g, currentDate); // Reemplaza todas las instancias de "XX/XX/XXXX"
+        }
+
+        // Copiar el texto al portapapeles
         navigator.clipboard.writeText(text)
           .then(() => {
             const originalText = button.textContent; // Guarda el texto original del botón
@@ -577,9 +592,11 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
       }
     });
   });
-  </script>
-  <script>
- window.onscroll = function() {
+</script>
+
+<!-- Segundo script: Manejo del botón de scroll (sin cambios) -->
+<script>
+  window.onscroll = function() {
     var scrollButton = document.getElementById("scroll-button");
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
         scrollButton.style.display = "block";
@@ -592,9 +609,7 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
             scrollButton.style.display = "none";
         }, 500); // Coincide con la duración de la transición de opacidad
     }
-};
-
-
-  </script>
+  };
+</script>
 </body>
 </html>
