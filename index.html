@@ -73,17 +73,19 @@
       <div class="container row text-white">
 
         <!-- COLUMNA 1 -->
-        <div class="col-12 col-md-6 col-lg-4">
-          <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Planear</span> USUARIO NO CONTESTA:</h4>
-          <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
+<!-- COLUMNA 1 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Planear</span> USUARIO NO CONTESTA:</h4>
+      <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
 Se realiza llamado a las XX:XX al numero
 XXXXX sin respuesta de usuario, se
 devolvera el llamado en 15 minutos;
-          </p>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-light copy-btn mb-5">Copiar comentario</button>
-          </div>
-        </div>
+      </p>
+      <div class="d-flex justify-content-center gap-2">
+        <button class="btn btn-outline-light copy-btn mb-5" data-text="Se realiza llamado a las XX:XX al numero XXXXX sin respuesta de usuario, se devolvera el llamado en 30 minutos;">PJUD4</button>
+        <button class="btn btn-outline-light copy-btn mb-5" data-text="Se realiza llamado a las XX:XX al numero XXXXX sin respuesta de usuario, se devolvera el llamado en 15 minutos;">PJUD5</button>
+      </div>
+    </div>
 
         <!-- COLUMNA 2 -->
         <div class="col-12 col-md-6 col-lg-4">
@@ -550,41 +552,31 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
 <script>
   document.querySelectorAll('.copy-btn').forEach(button => {
     button.addEventListener('click', () => {
-      // Prioriza obtener texto del atributo 'data-text' o del párrafo más cercano dentro del contenedor
       let text = button.getAttribute('data-text') || 
                 button.closest('.col-12, .col-md-6, .col-lg-4, .col-lg-6')?.querySelector('p')?.textContent.trim();
 
       if (text) {
-        // Obtener la fecha y hora actuales
         const now = new Date();
-        
-        // Formatear la hora (HH:MM)
-        const hours = String(now.getHours()).padStart(2, '0'); // Asegura 2 dígitos
-        const minutes = String(now.getMinutes()).padStart(2, '0'); // Asegura 2 dígitos
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
         const currentTime = `${hours}:${minutes}`;
-
-        // Formatear la fecha (DD/MM/YYYY)
-        const day = String(now.getDate()).padStart(2, '0'); // Día con 2 dígitos
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Mes con 2 dígitos (getMonth() empieza en 0, por eso +1)
-        const year = now.getFullYear(); // Año completo
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
         const currentDate = `${day}/${month}/${year}`;
 
-        // Reemplazar "XX:XX" con la hora actual si está presente
         if (text.includes('XX:XX')) {
-          text = text.replace(/XX:XX/g, currentTime); // Reemplaza todas las instancias de "XX:XX"
+          text = text.replace(/XX:XX/g, currentTime);
         }
-
-        // Reemplazar "XX/XX/XXXX" con la fecha actual si está presente
         if (text.includes('XX/XX/XXXX')) {
-          text = text.replace(/XX\/XX\/XXXX/g, currentDate); // Reemplaza todas las instancias de "XX/XX/XXXX"
+          text = text.replace(/XX\/XX\/XXXX/g, currentDate);
         }
 
-        // Copiar el texto al portapapeles
         navigator.clipboard.writeText(text)
           .then(() => {
-            const originalText = button.textContent; // Guarda el texto original del botón
-            button.textContent = '¡Copiado!'; // Cambia el texto del botón temporalmente
-            setTimeout(() => button.textContent = originalText, 2000); // Restaura el texto original después de 2 segundos
+            const originalText = button.textContent;
+            button.textContent = '¡Copiado!';
+            setTimeout(() => button.textContent = originalText, 2000);
           })
           .catch(err => console.error('Error al copiar:', err));
       } else {
