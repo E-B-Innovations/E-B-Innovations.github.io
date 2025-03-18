@@ -568,18 +568,31 @@ Modelo: XXXXXXXX        serie: XXXXXXXXX"
 
       if (text) {
         const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
+        const hours = now.getHours(); // Hora en formato 24h
         const minutes = String(now.getMinutes()).padStart(2, '0');
-        const currentTime = `${hours}:${minutes}`;
+        const currentTime = `${String(hours).padStart(2, '0')}:${minutes}`;
         const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Meses empiezan en 0
         const year = now.getFullYear();
         const currentDate = `${day}/${month}/${year}`;
 
-        if (text.includes('XX:XX')) {
+        // Determinar si es "Buenos días" (hasta 11:59) o "Buenas tardes" (12:00 en adelante)
+        const greeting = hours < 12 ? "Buenos días" : "Buenas tardes";
+
+        // Reemplazar "Buenos días" o "Buenos (días, tardes)" según la hora
+        if (text.includes("Buenos días")) {
+          text = text.replace("Buenos días", greeting);
+        } else if (text.includes("Buenos (días, tardes)")) {
+          text = text.replace("Buenos (días, tardes)", greeting);
+        }
+
+        // Reemplazar XX:XX con la hora actual
+        if (text.includes("XX:XX")) {
           text = text.replace(/XX:XX/g, currentTime);
         }
-        if (text.includes('XX/XX/XXXX')) {
+
+        // Reemplazar XX/XX/XXXX con la fecha actual
+        if (text.includes("XX/XX/XXXX")) {
           text = text.replace(/XX\/XX\/XXXX/g, currentDate);
         }
 
