@@ -178,14 +178,10 @@ continuar con el proceso de configuracion;
         <div class="col-12 col-md-6 col-lg-4">
           <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Derivar </span> EQUIPO FUERA DE CONTRATO:</h4>
           <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
-Equipamiento Propiedad del Poder
-Judicial, sin contrato de mantención por
-parte de la empresa de Servicios, favor
-gestionar atención.
-Modelo:       serie:
+            Equipamiento Propiedad del Poder Judicial, sin contrato de mantención por parte de la empresa de Servicios, favor gestionar atención.<br>Modelo: asdasd Serie: asdasd
           </p>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-light copy-btn mb-5">Copiar comentario</button>
+            <button class="btn btn-outline-light mb-5" data-bs-toggle="modal" data-bs-target="#equipoFueraContratoModal" data-comment="Equipamiento Propiedad del Poder Judicial, sin contrato de mantención por parte de la empresa de Servicios, favor gestionar atención. Modelo: {modelo} Serie: {serie}">Ingresar Datos</button>
           </div>
         </div>
 
@@ -193,11 +189,10 @@ Modelo:       serie:
         <div class="col-12 col-md-6 col-lg-4">
           <h4 class="bg-sun text-bl text-center mb-0 titulo rounded-top-3 fs-5"><span>Derivar </span> EQUIPO FUERA DE CONTRATO CON PJUD5:</h4>
           <p class="overflow-auto bg-og p-2 mb-2 parrafo rounded-bottom-3">
-Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD4, Favor gestionar.
-Serie:               Modelo:
+            Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD4, Favor gestionar.<br>Serie: asdasd Modelo: asdasd
           </p>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-light copy-btn mb-5">Copiar comentario</button>
+            <button class="btn btn-outline-light mb-5" data-bs-toggle="modal" data-bs-target="#equipoFueraContratoPjud5Modal" data-comment="Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD4, Favor gestionar. Serie: {serie} Modelo: {modelo}">Ingresar Datos</button>
           </div>
         </div>
 
@@ -685,6 +680,60 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
       </div>
     </div>
   </div>
+  <!-- Modal para "Derivar EQUIPO FUERA DE CONTRATO" -->
+<div class="modal fade" id="equipoFueraContratoModal" tabindex="-1" aria-labelledby="equipoFueraContratoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="equipoFueraContratoModalLabel">Ingresar Datos del Equipo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="equipoFueraContratoForm">
+          <div class="mb-3">
+            <label for="inputModeloFuera" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="inputModeloFuera" required>
+          </div>
+          <div class="mb-3">
+            <label for="inputSerieFuera" class="form-label">Serie</label>
+            <input type="text" class="form-control" id="inputSerieFuera" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveEquipoFueraContrato">Guardar y Copiar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para "Derivar EQUIPO FUERA DE CONTRATO CON PJUD5" -->
+<div class="modal fade" id="equipoFueraContratoPjud5Modal" tabindex="-1" aria-labelledby="equipoFueraContratoPjud5ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="equipoFueraContratoPjud5ModalLabel">Ingresar Datos del Equipo</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="equipoFueraContratoPjud5Form">
+          <div class="mb-3">
+            <label for="inputModeloPjud5" class="form-label">Modelo</label>
+            <input type="text" class="form-control" id="inputModeloPjud5" required>
+          </div>
+          <div class="mb-3">
+            <label for="inputSeriePjud5" class="form-label">Serie</label>
+            <input type="text" class="form-control" id="inputSeriePjud5" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveEquipoFueraContratoPjud5">Guardar y Copiar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -695,7 +744,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
       button.addEventListener('click', () => {
         let text = button.getAttribute('data-text') || 
                   button.closest('.col-12, .col-md-6, .col-lg-4, .col-lg-6')?.querySelector('p')?.textContent.trim();
-
+  
         if (text) {
           const now = new Date();
           const hours = now.getHours();
@@ -705,22 +754,25 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
           const month = String(now.getMonth() + 1).padStart(2, '0');
           const year = now.getFullYear();
           const currentDate = `${day}/${month}/${year}`;
-
+  
+          // Determinar saludo según la hora: antes de 12:00 es "Buenos días", después es "Buenas tardes"
           const greeting = hours < 12 ? "Buenos días" : "Buenas tardes";
-
+  
+          // Reemplazar "Buenos días" o "Buenos (días, tardes)" con el saludo adecuado
           if (text.includes("Buenos días")) {
             text = text.replace("Buenos días", greeting);
           } else if (text.includes("Buenos (días, tardes)")) {
             text = text.replace("Buenos (días, tardes)", greeting);
           }
-
+  
+          // Reemplazar marcadores de tiempo y fecha
           if (text.includes("XX:XX")) {
             text = text.replace(/XX:XX/g, currentTime);
           }
           if (text.includes("XX/XX/XXXX")) {
             text = text.replace(/XX\/XX\/XXXX/g, currentDate);
           }
-
+  
           navigator.clipboard.writeText(text)
             .then(() => {
               const originalText = button.textContent;
@@ -731,26 +783,33 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         }
       });
     });
-
+  
     // Función para copiar texto y cerrar modal completamente
     function copyAndClose(text, button, modalId) {
+      const now = new Date();
+      const hours = now.getHours();
+      const greeting = hours < 12 ? "Buenos días" : "Buenas tardes";
+  
+      // Aplicar el saludo dinámico
+      if (text.includes("Buenos días")) {
+        text = text.replace("Buenos días", greeting);
+      } else if (text.includes("Buenos (días, tardes)")) {
+        text = text.replace("Buenos (días, tardes)", greeting);
+      }
+  
       navigator.clipboard.writeText(text)
         .then(() => {
           const originalText = button.textContent;
           button.textContent = '¡Copiado!';
           setTimeout(() => button.textContent = originalText, 2000);
-
-          // Cerrar el modal y eliminar el backdrop
+  
           const modalElement = document.getElementById(modalId);
           const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
           modal.hide();
-
-          // Eliminar manualmente el backdrop si persiste
+  
           setTimeout(() => {
             const backdrop = document.querySelector('.modal-backdrop');
-            if (backdrop) {
-              backdrop.remove();
-            }
+            if (backdrop) backdrop.remove();
             document.body.classList.remove('modal-open');
             document.body.style.overflow = '';
             document.body.style.paddingRight = '';
@@ -761,7 +820,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
           alert('Hubo un error al copiar el texto.');
         });
     }
-
+  
     // Manejo de los modales
     let currentButton = null;
     document.querySelectorAll('[data-bs-toggle="modal"]').forEach(button => {
@@ -769,7 +828,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         currentButton = button;
       });
     });
-
+  
     // Modal "USUARIO SIN DISPONIBILIDAD EN EL DIA"
     document.getElementById('saveDateTime').addEventListener('click', () => {
       const inputDate = document.getElementById('inputDate').value;
@@ -785,7 +844,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         alert('Por favor, ingrese la fecha y la hora.');
       }
     });
-
+  
     // Modal "USUARIO RECOORDINA ATENCION"
     document.getElementById('saveRecoordina').addEventListener('click', () => {
       const inputTime = document.getElementById('inputRecoordinaTime').value;
@@ -801,7 +860,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         alert('Por favor, ingrese la hora.');
       }
     });
-
+  
     // Modal "INGRESAR DATOS EQUIPO Y USUARIO"
     document.getElementById('saveDatosEquipo').addEventListener('click', () => {
       const modelo = document.getElementById('inputModelo').value;
@@ -824,7 +883,7 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         alert('Por favor, complete todos los campos.');
       }
     });
-
+  
     // Modal "SOLUCIONADO por MDA: CON VERIFICACION"
     document.getElementById('saveSolucionadoCon').addEventListener('click', () => {
       const procedimiento = document.getElementById('inputProcedimiento').value;
@@ -832,11 +891,8 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
       const modelo = document.getElementById('inputModeloCon').value;
       const serie = document.getElementById('inputSerieCon').value;
       if (procedimiento && nombre && modelo && serie && currentButton) {
-        const now = new Date();
-        const greeting = now.getHours() < 12 ? "Buenos días" : "Buenas tardes";
         let text = currentButton.getAttribute('data-comment');
         text = text
-          .replace('Buenos (días, tardes)', greeting)
           .replace('{procedimiento}', procedimiento)
           .replace('{nombre}', nombre)
           .replace('{modelo}', modelo)
@@ -846,18 +902,15 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         alert('Por favor, complete todos los campos.');
       }
     });
-
+  
     // Modal "SOLUCIONADO por MDA: SIN VERIFICACION"
     document.getElementById('saveSolucionadoSin').addEventListener('click', () => {
       const procedimiento = document.getElementById('inputProcedimientoSin').value;
       const modelo = document.getElementById('inputModeloSin').value;
       const serie = document.getElementById('inputSerieSin').value;
       if (procedimiento && modelo && serie && currentButton) {
-        const now = new Date();
-        const greeting = now.getHours() < 12 ? "Buenos días" : "Buenas tardes";
         let text = currentButton.getAttribute('data-comment');
         text = text
-          .replace('Buenos (días, tardes)', greeting)
           .replace('{procedimiento}', procedimiento)
           .replace('{modelo}', modelo)
           .replace('{serie}', serie);
@@ -866,24 +919,38 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         alert('Por favor, complete todos los campos.');
       }
     });
-  </script>
+  
+// Modal "EQUIPO FUERA DE CONTRATO"
+document.getElementById('saveEquipoFueraContrato').addEventListener('click', () => {
+  const modelo = document.getElementById('inputModeloFuera').value;
+  const serie = document.getElementById('inputSerieFuera').value;
+  if (modelo && serie && currentButton) {
+    let text = currentButton.getAttribute('data-comment');
+    // Separar el texto principal y los detalles con un salto de línea
+    const baseText = "Equipamiento Propiedad del Poder Judicial, sin contrato de mantención por parte de la empresa de Servicios, favor gestionar atención.";
+    const details = `Modelo: ${modelo} Serie: ${serie}`;
+    text = `${baseText}\n${details}`;
+    copyAndClose(text, currentButton, 'equipoFueraContratoModal');
+  } else {
+    alert('Por favor, complete todos los campos.');
+  }
+});
 
-  <!-- Script para el botón de scroll -->
-  <script>
-    window.onscroll = function() {
-      var scrollButton = document.getElementById("scroll-button");
-      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        scrollButton.style.display = "block";
-        setTimeout(function() {
-          scrollButton.style.opacity = "1";
-        }, 10);
-      } else {
-        scrollButton.style.opacity = "0";
-        setTimeout(function() {
-          scrollButton.style.display = "none";
-        }, 500);
-      }
-    };
+// Modal "EQUIPO FUERA DE CONTRATO CON PJUD5"
+document.getElementById('saveEquipoFueraContratoPjud5').addEventListener('click', () => {
+  const modelo = document.getElementById('inputModeloPjud5').value;
+  const serie = document.getElementById('inputSeriePjud5').value;
+  if (modelo && serie && currentButton) {
+    let text = currentButton.getAttribute('data-comment');
+    // Separar el texto principal y los detalles con un salto de línea
+    const baseText = "Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD4, Favor gestionar.";
+    const details = `Serie: ${serie} Modelo: ${modelo}`;
+    text = `${baseText}\n${details}`;
+    copyAndClose(text, currentButton, 'equipoFueraContratoPjud5Modal');
+  } else {
+    alert('Por favor, complete todos los campos.');
+  }
+});
   </script>
 </body>
 </html>
