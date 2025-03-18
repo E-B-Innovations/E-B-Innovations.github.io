@@ -501,6 +501,42 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
     <!--Links-->
     <div class="mb-5 mt-5 text-white" id="links">
       <h2 class="display-5 border-top border-4 mt-5">Links</h2>
+      <div>
+        <h3 class="bg-darkl p-2 display-6 rounded border-start border-2 border-warning shadow-sm fs-4">MAUWEB:</h3>
+        <div class="m-4 col-sm">
+          <p hidden class="bg-darkl p-3"></p>
+          <button class="btn btn-outline-light copy-btn btn-md" data-text=" http://mesaayuda.intranet.pjud/mesa_ayuda/index.php">Copiar link</button>
+        </div>
+        <div>
+          <h3 class="bg-darkl p-2 display-6 rounded border-start border-2 border-warning shadow-sm fs-4">PROMANAGER:</h3>
+          <div class="m-4 col-sm">
+            <p hidden class="bg-darkl p-3"></p>
+            <button class="btn btn-outline-light copy-btn btn-md" data-text=" serviciomda.promanager.cl "> Copiar link</button>
+          </div>
+          <div>
+            <h3 class="bg-darkl p-2 display-6 rounded border-start border-2 border-warning shadow-sm fs-4">SCO PJUD (EXCEL TICKETS):</h3>
+            <div class="m-4 col-sm">
+              <p hidden class="bg-darkl p-3"></p>
+              <button class="btn btn-outline-light copy-btn btn-md" data-text="https://docs.google.com/spreadsheets/d/1FIHRjUBXG62ii3xMgYFQ0lOwFbprXAD646a25brvmm8/edit?pli=1&gid=1563026893#gid=1563026893">Copiar link</button>
+            </div>
+            <div>
+              <h3 class="bg-darkl p-2 display-6 rounded border-start border-2 border-warning shadow-sm fs-4">EQUIPOS EN SERVICIO:</h3>
+              <div class="m-4 col-sm">
+                <p hidden class="bg-darkl p-3"></p>
+                <button class="btn btn-outline-light copy-btn btn-md" data-text=" https://docs.google.com/spreadsheets/d/1zatrv_8OUPJEfKNSmlf1YeXOemuroumf/edit?gid=1791798106#gid=1791798106 ">Copiar link</button>
+              </div>
+              <div>
+                <h3 class="bg-darkl p-2 display-3 rounded border-start border-2 border-warning shadow-sm fs-4">INTRANET PODER JUDICIAL:</h3>
+                <div class="m-4 col-sm">
+                  <p hidden class="bg-darkl p-3"></p>
+                  <button class="btn btn-outline-light copy-btn btn-md" data-text="http://www2.intranet.pjud/?page_id=7212&filtro=display_name&busca=Raquel Alicia MuÑoz Bravo">Copiar link</button>
+                </div>
+                <div>
+                  <h3 class="bg-darkl p-2 display-6 rounded border-start border-2 border-warning shadow-sm fs-2">ZIMBRA:</h3>
+                  <div class="m-4 col-sm">
+                    <p hidden class="bg-darkl p-3"></p>
+                    <button class="btn btn-outline-light copy-btn btn-md" data-text="https://mail.pjud.cl"> Copiar link</button>
+                  </div>
     </div>
   </main>
   <div id="scroll-button" class="btn btn-warning position-fixed bottom-0 end-0 m-3" style="display: none; opacity: 0;">
@@ -516,6 +552,28 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
   </footer>
 
   <!-- Modales -->
+
+<!-- Modal para ingresar PIN-->
+<div class="modal fade" id="pinModal" tabindex="-1" aria-labelledby="pinModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+          <div class="modal-header">
+              <h5 class="modal-title" id="pinModalLabel">Ingresar PIN de Acceso</h5>
+              <button type="button" class="btn-close btn-close-white" aria-label="Close" onclick="return false;"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label for="pinInput" class="form-label">PIN</label>
+                  <input type="password" id="pinInput" class="form-control" required>
+              </div>
+              <p id="errorMsg" class="text-danger" style="display: none;">PIN incorrecto</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="verificarPIN()">Acceder</button>
+          </div>
+      </div>
+  </div>
+</div>
   <!-- Modal para "USUARIO SIN DISPONIBILIDAD EN EL DIA" -->
   <div class="modal fade" id="dateTimeModal" tabindex="-1" aria-labelledby="dateTimeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -827,6 +885,42 @@ Modelo: {modelo} serie: {serie}">Ingresar Datos</button>
         currentButton = button;
       });
     });
+  
+  // MODAL PIN
+  
+  document.addEventListener("DOMContentLoaded", function () {
+            let modal = new bootstrap.Modal(document.getElementById('pinModal'));
+            modal.show();
+
+            document.getElementById("pinInput").addEventListener("keypress", function(event) {
+                if (event.key === "Enter") {
+                    verificarPIN(); // Llama a la función verificarPIN al presionar Enter
+                }
+            });
+        });
+
+        function verificarPIN() {
+            const PIN_CORRECTO = "pjud5upg"; 
+            let pinIngresado = document.getElementById("pinInput").value;
+            let errorMsg = document.getElementById("errorMsg");
+
+            if (pinIngresado === PIN_CORRECTO) {
+                document.body.style.display = "block"; 
+                let modal = bootstrap.Modal.getInstance(document.getElementById('pinModal'));
+                modal.hide(); 
+            } else {
+                errorMsg.style.display = "block"; 
+            }
+        }
+
+        document.getElementById('pinModal').addEventListener('show.bs.modal', function (event) {
+            // Deshabilitar el cierre al hacer clic en el fondo
+            const modalInstance = bootstrap.Modal.getInstance(this);
+            if (modalInstance) {
+                modalInstance._config.backdrop = 'static'; // Deshabilita el cierre al hacer clic en el fondo
+                modalInstance._config.keyboard = false; // Deshabilita el cierre con el teclado
+            }
+        });
   
     // Modal "USUARIO SIN DISPONIBILIDAD EN EL DIA"
     document.getElementById('saveDateTime').addEventListener('click', () => {
