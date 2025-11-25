@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="default">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PJUD5 | Dashboard de Procedimientos</title>
+    <link rel="icon" href="assets/img/fcom.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/styles/styles.css">
+</head>
+
+<body class="bg-darkest">
+
+    <header class="container-fluid bg-darkl text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+                    <img class="rounded-4 mb-4" src="assets/img/fcom.png" alt="logo-fcom" style="max-width: 150px;">
+                    <h1 class="display-3 fw-bold text-lt">
+                        Procedimientos <span class="fw-bold text-sun">PJUD</span><span class="text-og">5</span>
+                    </h1>
+                    <h2 class="h4 mt-2 text-lt fw-light">Estándares de trabajo para el proyecto PJUD5 de Fcom.</h2>
+                    <p class="mt-4 text-secondary">
+                        Creado por:
+                        <a href="https://www.linkedin.com/in/enriquegonzalezvenegas/" class="link-color" target="_blank" rel="noopener">Enrique González</a> /
+                        <a href="https://www.linkedin.com/in/benjamin-loyola/" class="link-color" target="_blank" rel="noopener">Benjamin Loyola</a>
+                    </p>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="mb-3">
+                        <label for="themeSelector" class="form-label text-white fw-bold small">
+                            <i class="bi bi-palette-fill me-2"></i>Tema:
+                        </label>
+                        <select id="themeSelector" class="form-select form-select-sm bg-dark text-white border-secondary">
+                            <option value="default">⚡ Default (PJUD Original)</option>
+                            <option value="aura">🌊 Aura (Turquesa & Índigo)</option>
+                            <option value="magma">🔥 Magma (Rojo & Carbón)</option>
+                            <option value="botanical">🌿 Botanical (Verde & Oro)</option>
+                            <option value="synthwave">👾 Synthwave (Púrpura & Neón)</option>
+                            <option value="slate">🏔️ Slate (Gris Azulado Pro)</option>
+                        </select>
+                    </div>
+
+                    <nav class="list-group shadow-lg">
+                        <a href="#notas" class="indice p-3 border-secondary">Notas</a>
+                        <a href="#comentarios" class="indice p-3 border-secondary">Biblioteca de Comentarios</a>
+                        <a href="#derivaciones" class="indice p-3 border-secondary">Guía derivaciones</a>
+                        <a href="#links" class="indice p-3 border-secondary">Links de Utilidad</a>
+                        <a href="#proxy" class="indice p-3 border-secondary">Configuración Proxy</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-5">
+
+        <section id="notas" class="mb-5 text-white">
+            <h2 class="display-6 border-top border-4 border-secondary pt-3 mb-4">Notas Rápidas</h2>
+            <div class="d-flex justify-content-center mb-5">
+                <button class="btn btn-outline-info copy-btn btn-lg px-5" data-text="Se toma contacto con el usuario;">
+                    <i class="bi bi-telephone-outbound me-2"></i>Tomar Contacto
+                </button>
+            </div>
+            <div class="bg-darkl p-4 rounded-3 border-start border-4 border-warning">
+                <h3 class="h2 text-sun mb-3">VNC</h3>
+                <div class="d-flex flex-wrap gap-3">
+                    <button class="btn btn-outline-warning copy-btn" data-text="S0p0rt3VnC">S0p0rt3VnC</button>
+                    <button class="btn btn-outline-warning copy-btn" data-text="upgcontrol">upgcontrol</button>
+                    <button class="btn btn-outline-warning copy-btn" data-text="zaq.@wsx">zaq.@wsx</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="comentarios" class="mb-5 text-white">
+            <h2 class="display-6 border-top border-4 border-secondary pt-3 mb-5">Biblioteca de Comentarios</h2>
+            
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Planear: USUARIO NO CONTESTA</div>
+                        <div class="bg-og p-3 text-white mb-0 flex-grow-1">
+                            Se realiza llamado a las XX:XX al numero XXXXX sin respuesta...
+                        </div>
+                        <div class="bg-og rounded-bottom-3 p-3 pt-0 d-flex justify-content-center gap-2">
+                            <button class="btn btn-outline-light btn-sm copy-btn" data-type="dynamic" data-text="Se realiza llamado a las XX:XX al numero XXXXX sin respuesta de usuario, se devolvera el llamado en 30 minutos;">PJUD4</button>
+                            <button class="btn btn-outline-light btn-sm copy-btn" data-type="dynamic" data-text="Se realiza llamado a las XX:XX al numero XXXXX sin respuesta de usuario, se devolvera el llamado en 15 minutos;">PJUD5</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Planear: RECOORDINA</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Se solicita que la atención se realice desde las xx:xx en adelante.</p>
+                            <button class="btn btn-outline-light w-100 mt-3" data-bs-toggle="modal" data-bs-target="#recoordinaModal" 
+                                data-comment="Se realiza llamado a las XX:XX, se solicita que la atencion se realice desde las xx:xx en adelante;">
+                                Ingresar Hora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Planear: SIN DISPONIBILIDAD</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Solicita contacto el día XX/XX a las XX:XX hrs.</p>
+                            <button class="btn btn-outline-light w-100 mt-3" data-bs-toggle="modal" data-bs-target="#dateTimeModal" 
+                                data-comment="Se toma contacto con usuario y solicita contacto el día XX/XX/XXXX a las XX:XX hrs ya que no posee disponibilidad al momento de la llamada;">
+                                Ingresar Fecha/Hora
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Planear: 3er NO CONTACTO</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Se enviara correo electrónico para solicitar nuevo numero.</p>
+                            <button class="btn btn-outline-light w-100 mt-3 copy-btn" data-type="dynamic"
+                                data-text="se realiza llamado a las XX:XX al numero XXXXXX sin respuesta de usuario. Se enviara correo electronico para solicitar nuevo numero de contacto;">
+                                Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Derivar: DATOS EQUIPO/USUARIO</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Plantilla completa de datos de equipo y usuario.</p>
+                            <button class="btn btn-outline-light w-100 mt-3" data-bs-toggle="modal" data-bs-target="#datosEquipoModal" 
+                                data-comment='"Ingresar comentario"&#10;&#10;---DATOS DE EQUIPO---&#10;Modelo: {modelo} Serie: {serie}&#10;---DATOS DE USUARIO---&#10;Teléfono: {telefono}&#10;Nombre: {nombre}&#10;Dirección: {direccion}&#10;Dependencia: {dependencia}'>
+                                Ingresar Datos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Planear: MONITO WEB</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Solicitar código de activación a Registro Civil.</p>
+                            <button class="btn btn-outline-light w-100 mt-3 copy-btn" data-type="dynamic"
+                                data-text="Se envía correo a las XX:XX del XX/XX/XXXX a registro civil para solicitar codigo de activación de Monitoweb. Se indica a usuario que debe esperar repuesta para continuar con el proceso de configuracion;">
+                                Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Finalizar: ANULAR NO CONTACTO</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Se anula requerimiento por no lograr contacto.</p>
+                            <button class="btn btn-outline-light w-100 mt-3 copy-btn" data-type="dynamic"
+                                data-text="Buenos días, se anula requerimiento por no lograr contacto, en caso de que el problema persista favor generar nuevo requerimiento.">
+                                Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-12 col-lg-8">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">Derivar: EQUIPOS FUERA DE CONTRATO</div>
+                        <div class="bg-og p-3 text-white mb-0 flex-grow-1">
+                            <p class="mb-2">Seleccione el tipo de derivación:</p>
+                        </div>
+                        <div class="bg-og rounded-bottom-3 p-3 pt-0 d-flex flex-wrap gap-2 justify-content-center">
+                            <button class="btn btn-outline-light flex-grow-1" data-bs-toggle="modal" data-bs-target="#equipoFueraContratoModal"
+                                data-comment="Buenos días, Equipamiento Propiedad del Poder Judicial, sin contrato de mantención por parte de la empresa de Servicios, favor gestionar atención.&#10;Modelo: {modelo} Serie: {serie}">
+                                Sin Contrato
+                            </button>
+                            <button class="btn btn-outline-warning flex-grow-1" data-bs-toggle="modal" data-bs-target="#equipoFueraContratoModal"
+                                data-comment="Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD4, Favor gestionar.&#10;Serie: {serie} Modelo: {modelo}">
+                                A PJUD 4
+                            </button>
+                            <button class="btn btn-outline-info flex-grow-1" data-bs-toggle="modal" data-bs-target="#equipoFueraContratoModal"
+                                data-comment="Buenos días, se realiza derivación por equipo fuera de contrato, se deriva a MDA PJUD5, Favor gestionar.&#10;Serie: {serie} Modelo: {modelo}">
+                                A PJUD 5
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">SOLUCIONADO: CON VERIFICACIÓN</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Generación automática de procedimientos por sistema.</p>
+                            <button class="btn btn-outline-light w-100 mt-3" data-bs-toggle="modal" data-bs-target="#solucionadoConModal">
+                                Ingresar Datos y Seleccionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                    <div class="card h-100 bg-transparent border-0">
+                        <div class="bg-sun text-bl text-center p-2 rounded-top-3 fw-bold">SOLUCIONADO: SIN VERIFICACIÓN</div>
+                        <div class="bg-og p-3 text-white rounded-bottom-3 flex-grow-1 d-flex flex-column justify-content-between">
+                            <p>Pruebas técnicas sin usuario (cuentas MDA).</p>
+                            <button class="btn btn-outline-light w-100 mt-3" data-bs-toggle="modal" data-bs-target="#solucionadoSinModal">
+                                Ingresar Datos y Seleccionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="derivaciones" class="mb-5 text-white">
+            <h2 class="display-6 border-top border-4 border-secondary pt-3 mb-5">Guía de Derivaciones</h2>
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="card bg-darkl text-white border-secondary">
+                        <div class="card-header border-secondary text-sun fw-bold">Terreno (SCO)</div>
+                        <div class="card-body">
+                            <p>Se deriva cuando <span class="text-info">no hay técnicos residentes</span>.</p>
+                            <ul class="mb-0">
+                                <li>Mauweb: Coordinación PJUD5 / Jose Chávez</li>
+                                <li>Promanager: Derivado SCO / Evaluación terreno</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card bg-darkl text-white border-secondary">
+                        <div class="card-header border-secondary text-sun fw-bold">Residentes</div>
+                        <div class="card-body">
+                            <p>Se deriva cuando <span class="text-info">hay disponibilidad</span> en el lugar.</p>
+                            <ul class="mb-0">
+                                <li>Mauweb: Técnicos residentes PJUD5 / Roberto Miranda</li>
+                                <li>Promanager: Derivado terreno / Evaluación terreno</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="links" class="mb-5 text-white">
+            <h2 class="display-6 border-top border-4 border-secondary pt-3 mb-5">Links de Utilidad</h2>
+            <div class="row g-3">
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-headset fs-2 text-warning mb-2"></i>
+                        <h6 class="text-white mb-3">MAUWEB</h6>
+                        <a href="http://mesaayuda.intranet.pjud/mesa_ayuda/index.php" target="_blank" class="btn btn-sm btn-outline-warning w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="http://mesaayuda.intranet.pjud/mesa_ayuda/index.php">Copiar</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-kanban fs-2 text-info mb-2"></i>
+                        <h6 class="text-white mb-3">PROMANAGER</h6>
+                        <a href="https://serviciomda.promanager.cl" target="_blank" class="btn btn-sm btn-outline-info w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="serviciomda.promanager.cl">Copiar</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-file-earmark-spreadsheet fs-2 text-success mb-2"></i>
+                        <h6 class="text-white mb-3">SCO PJUD</h6>
+                        <a href="https://docs.google.com/spreadsheets/d/1euq_Xx5NbXH19gPOt0adqJNfHMQjY8J5AzngUwDUj-s/edit?gid=1563026893#gid=1563026893" target="_blank" class="btn btn-sm btn-outline-success w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="https://docs.google.com/spreadsheets/d/1euq_Xx5NbXH19gPOt0adqJNfHMQjY8J5AzngUwDUj-s/edit?gid=1563026893#gid=1563026893">Copiar</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-tools fs-2 text-danger mb-2"></i>
+                        <h6 class="text-white mb-3">EN SERVICIO</h6>
+                        <a href="https://jmarrufo-gh.github.io/equiposfcom-web.github.io/" target="_blank" class="btn btn-sm btn-outline-danger w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="https://jmarrufo-gh.github.io/equiposfcom-web.github.io/">Copiar</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-globe fs-2 text-primary mb-2"></i>
+                        <h6 class="text-white mb-3">INTRANET</h6>
+                        <a href="http://www2.intranet.pjud/?page_id=7212&filtro=display_name&busca=Raquel Alicia MuÑoz Bravo" target="_blank" class="btn btn-sm btn-outline-primary w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="http://www2.intranet.pjud/?page_id=7212&filtro=display_name&busca=Raquel Alicia MuÑoz Bravo">Copiar</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="bg-darkl p-3 rounded text-center h-100 border border-secondary hover-effect">
+                        <i class="bi bi-envelope fs-2 text-light mb-2"></i>
+                        <h6 class="text-white mb-3">ZIMBRA</h6>
+                        <a href="https://mail.pjud.cl" target="_blank" class="btn btn-sm btn-outline-light w-100">Abrir</a>
+                        <button class="btn btn-sm btn-link text-secondary text-decoration-none mt-1 copy-btn" data-text="https://mail.pjud.cl">Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proxy" class="mb-5 text-white">
+            <h2 class="display-6 border-top border-4 border-secondary pt-3 mb-5">Configuración Proxy</h2>
+            <div class="table-responsive">
+                <table class="table table-dark table-hover border-secondary align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-sun">Servicio</th>
+                            <th scope="col">Dirección</th>
+                            <th scope="col">Puerto</th>
+                            <th scope="col" class="text-end">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mercado Público</td>
+                            <td class="font-monospace text-info">10.94.10.141</td>
+                            <td class="font-monospace text-warning">3128</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="10.94.10.141">IP</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="3128">Port</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Penal</td>
+                            <td class="font-monospace text-info">http://proxy.penal.pjud</td>
+                            <td class="font-monospace text-warning">8080</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="http://proxy.penal.pjud">URL</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="8080">Port</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Civil</td>
+                            <td class="font-monospace text-info">http://proxy.civil.pjud</td>
+                            <td class="font-monospace text-warning">8080</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="http://proxy.civil.pjud">URL</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="8080">Port</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Letras</td>
+                            <td class="font-monospace text-info">http://proxy.letras.pjud</td>
+                            <td class="font-monospace text-warning">8080</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="http://proxy.letras.pjud">URL</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="8080">Port</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Corporación</td>
+                            <td class="font-monospace text-info">http://proxy.cadm.pjud</td>
+                            <td class="font-monospace text-warning">8080</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="http://proxy.cadm.pjud">URL</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="8080">Port</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Corte</td>
+                            <td class="font-monospace text-info">http://proxy.corte.pjud</td>
+                            <td class="font-monospace text-warning">8080</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="http://proxy.corte.pjud">URL</button>
+                                <button class="btn btn-sm btn-outline-light copy-btn" data-text="8080">Port</button>
+                            </td>
+                        </tr>
+                        <tr class="table-group-divider border-secondary">
+                            <td class="text-sun fw-bold">Excepciones</td>
+                            <td colspan="2" class="font-monospace small text-break text-light opacity-75">
+                                *.pjud;*.pjud.cl;10.*;*.poderjudicial.cl;www.mercadopublico.cl;heimdall.mercadopublico.cl
+                            </td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-warning copy-btn" data-text="*.pjud;*.pjud.cl;10.*;*.poderjudicial.cl;www.mercadopublico.cl;heimdall.mercadopublico.cl">Copiar Todo</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="scroll-button" class="position-fixed bottom-0 end-0 m-4">
+        <a href="#" class="btn btn-warning rounded-circle shadow p-3">
+            <i class="bi bi-arrow-up-short h4 text-dark"></i>
+        </a>
+    </div>
+
+    <footer class="py-4 bg-darkl border-top border-secondary mt-auto">
+        <div class="container text-center">
+            <a href="#" class="text-decoration-none text-light mb-3 d-inline-block">Volver al inicio</a>
+            <p class="text-secondary mb-0">© 2025, E-B Innovations</p>
+        </div>
+    </footer>
+
+
+    <div class="modal fade" id="pinModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary position-relative">
+                
+                <div id="magicButton" style="position: absolute; top: 0; right: 0; width: 60px; height: 60px; z-index: 2000; cursor: pointer;" title=""></div>
+
+                <div class="modal-header border-secondary justify-content-center">
+                    <h5 class="modal-title">
+                        <i class="bi bi-shield-lock me-2"></i>Seguridad PJUD5
+                    </h5>
+                </div>
+                
+                <div class="modal-body">
+                    <label class="form-label text-center w-100">Ingrese PIN de Acceso</label>
+                    <input type="password" id="pinInput" class="form-control bg-dark border-secondary text-white text-center fs-4 mt-2" autofocus>
+                    <div id="errorMsg" class="alert alert-danger mt-3 d-none text-center p-2">PIN Incorrecto</div>
+                </div>
+                
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-primary w-100" id="btnVerificarPin">Acceder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dateTimeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Ingresar Fecha y Hora</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" class="form-control mb-3" id="inputDate">
+                    <label class="form-label">Hora</label>
+                    <input type="time" class="form-control" id="inputTime">
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveDateTime">Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="recoordinaModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Ingresar Hora Atención</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Hora inicio</label>
+                    <input type="time" class="form-control" id="inputRecoordinaTime">
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-primary" id="saveRecoordina">Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="datosEquipoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Datos Equipo y Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control mb-2" id="inputModelo" placeholder="Modelo">
+                    <input type="text" class="form-control mb-2" id="inputSerie" placeholder="Serie">
+                    <hr class="border-secondary">
+                    <input type="text" class="form-control mb-2" id="inputTelefono" placeholder="Teléfono">
+                    <input type="text" class="form-control mb-2" id="inputNombre" placeholder="Nombre">
+                    <input type="text" class="form-control mb-2" id="inputDireccion" placeholder="Dirección">
+                    <input type="text" class="form-control mb-2" id="inputDependencia" placeholder="Dependencia">
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-primary" id="saveDatosEquipo">Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="equipoFueraContratoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Datos Equipo (Fuera Contrato)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">Modelo</label>
+                    <input type="text" class="form-control mb-3" id="inputModeloFuera">
+                    <label class="form-label">Serie</label>
+                    <input type="text" class="form-control" id="inputSerieFuera">
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-primary" id="saveEquipoFueraContrato">Copiar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="solucionadoConModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Solución con Verificación</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-12">
+                             <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputNombreVerif" placeholder="Nombre Usuario">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputModeloCon" placeholder="Modelo">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputSerieCon" placeholder="Serie">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-sun small">Nota adicional (Opcional):</label>
+                        <textarea class="form-control bg-darkl text-white border-secondary" id="inputProcedimiento" rows="2" placeholder="Algo extra..."></textarea>
+                    </div>
+                    
+                    <label class="form-label text-sun small">Seleccione Sistema:</label>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <button class="btn btn-outline-danger btn-sm flex-grow-1 btn-template-con" data-key="garantia">GARANTÍA</button>
+                        <button class="btn btn-outline-info btn-sm flex-grow-1 btn-template-con" data-key="civil">CIVIL</button>
+                        <button class="btn btn-outline-warning btn-sm flex-grow-1 btn-template-con" data-key="letras">LETRAS</button>
+                        <button class="btn btn-outline-primary btn-sm flex-grow-1 btn-template-con" data-key="monito">MONITO</button>
+                        <button class="btn btn-outline-secondary btn-sm flex-grow-1 btn-template-con" data-key="pdf">PDF</button>
+                        <button class="btn btn-outline-success btn-sm flex-grow-1 btn-template-con" data-key="impresora">IMPRESORA</button>
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 btn-template-con" data-key="perfil">PERFIL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="solucionadoSinModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title">Solución Técnica (Sin Usuario)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-2 mb-3">
+                        <div class="col-12">
+                            <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputNombreSin" placeholder="Nombre Usuario (Opcional)">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputModeloSin" placeholder="Modelo">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-darkl text-white border-secondary" id="inputSerieSin" placeholder="Serie">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-sun small">Nota adicional (Opcional):</label>
+                        <textarea class="form-control bg-darkl text-white border-secondary" id="inputProcedimientoSin" rows="2" placeholder="Algo extra..."></textarea>
+                    </div>
+                    
+                    <label class="form-label text-sun small">Seleccione Sistema:</label>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center">
+                        <button class="btn btn-outline-danger btn-sm flex-grow-1 btn-template-sin" data-key="garantia">GARANTÍA</button>
+                        <button class="btn btn-outline-info btn-sm flex-grow-1 btn-template-sin" data-key="civil">CIVIL</button>
+                        <button class="btn btn-outline-warning btn-sm flex-grow-1 btn-template-sin" data-key="letras">LETRAS</button>
+                        <button class="btn btn-outline-primary btn-sm flex-grow-1 btn-template-sin" data-key="monito">MONITO</button>
+                        <button class="btn btn-outline-secondary btn-sm flex-grow-1 btn-template-sin" data-key="pdf">PDF</button>
+                        <button class="btn btn-outline-success btn-sm flex-grow-1 btn-template-sin" data-key="impresora">IMPRESORA</button>
+                        <button class="btn btn-outline-light btn-sm flex-grow-1 btn-template-sin" data-key="perfil">PERFIL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
