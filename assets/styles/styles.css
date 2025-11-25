@@ -1,0 +1,175 @@
+/* =========================================
+1. DEFINICIÓN DE TEMAS (PALETAS COOLORS.CO)
+   ========================================= */
+
+/* TEMA DEFAULT (PJUD Original mejorado) */
+:root {
+    --bg-darkest: #212529;
+    --bg-dark-l: #2a2f34;
+    --color-sun: #e9b86f; /* Amarillo Ámbar */
+    --color-og: #1ba095;  /* Turquesa Profundo */
+    --color-bl: #112A46;  /* Azul oscuro contraste */
+    --color-lt: #dee2e6;  /* Blanco Humo */
+    --color-sky: #75c3f7;
+    --color-skylight: #6ea8fe;
+}
+
+/* TEMA AURA (Turquesa & Índigo) */
+[data-theme="aura"] {
+    --bg-darkest: #0b1021;
+    --bg-dark-l: #151e32;
+    --color-sun: #4cc9f0;
+    --color-og: #223a5e;
+    --color-bl: #0b1021;
+    --color-lt: #e0fbfc;
+    --color-sky: #4895ef;
+    --color-skylight: #bde0fe;
+}
+
+/* TEMA MAGMA (Rojo & Carbón) */
+[data-theme="magma"] {
+    --bg-darkest: #18181b;
+    --bg-dark-l: #27272a;
+    --color-sun: #f87171;
+    --color-og: #450a0a;
+    --color-bl: #ffffff;
+    --color-lt: #d1d5db;
+    --color-sky: #ef4444;
+    --color-skylight: #fca5a5;
+}
+
+/* TEMA BOTANICAL (Verde & Oro) */
+[data-theme="botanical"] {
+    --bg-darkest: #0f1c15;
+    --bg-dark-l: #1b2e24;
+    --color-sun: #d4a373;
+    --color-og: #283618;
+    --color-bl: #0f1c15;
+    --color-lt: #faedcd;
+    --color-sky: #bc6c25;
+    --color-skylight: #fefae0;
+}
+
+/* TEMA SYNTHWAVE (Púrpura & Neón) */
+[data-theme="synthwave"] {
+    --bg-darkest: #10002b;
+    --bg-dark-l: #240046;
+    --color-sun: #f72585;
+    --color-og: #3c096c;
+    --color-bl: #ffffff;
+    --color-lt: #e0aaff;
+    --color-sky: #b5179e;
+    --color-skylight: #c77dff;
+}
+
+/* TEMA SLATE (Gris Azulado Pro) */
+[data-theme="slate"] {
+    --bg-darkest: #0f172a;
+    --bg-dark-l: #1e293b;
+    --color-sun: #38bdf8;
+    --color-og: #334155;
+    --color-bl: #0f172a;
+    --color-lt: #f8fafc;
+    --color-sky: #0ea5e9;
+    --color-skylight: #bae6fd;
+}
+
+/* =========================================
+   2. ESTILOS GENERALES
+   ========================================= */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-darkest);
+    color: var(--color-lt);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Utilitarios de Texto y Fondo */
+.text-sky { color: var(--color-sky) !important; }
+.text-og { color: var(--color-og) !important; }
+.text-bl { color: var(--color-bl) !important; }
+.text-lt { color: var(--color-lt) !important; }
+.text-sun { color: var(--color-sun) !important; }
+.text-skylight { color: var(--color-skylight) !important; }
+
+.bg-sky { background-color: var(--color-sky) !important; }
+.bg-sun { background-color: var(--color-sun) !important; }
+.bg-darkl { background-color: var(--bg-dark-l) !important; }
+.bg-darkest { background-color: var(--bg-darkest) !important; }
+.bg-og { background-color: var(--color-og) !important; }
+
+/* Enlaces */
+.link-color, .footer-color {
+    color: var(--color-skylight);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.link-color:hover, .footer-color:hover {
+    color: var(--color-sun);
+    text-decoration: underline;
+}
+
+/* Menú Lateral */
+.indice {
+    display: block;
+    background-color: var(--bg-darkest);
+    color: var(--color-lt);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 1px solid #495057;
+    border-right: 1px solid #495057;
+}
+.indice:first-child { border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; border-top: 1px solid #495057; }
+.indice:last-child { border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem; border-bottom: 1px solid #495057; }
+
+.indice:hover {
+    background-color: var(--color-og);
+    color: white;
+    padding-left: 1.5rem !important;
+}
+
+/* Scroll Button */
+#scroll-button {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+
+/* =========================================
+3. CORRECCIÓN DE INPUTS (Modo Oscuro)
+   ========================================= */
+.form-control, .form-select {
+    background-color: var(--bg-dark-l) !important;
+    color: var(--color-lt) !important;
+    border: 1px solid #495057;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--bg-dark-l) !important;
+    color: var(--color-lt) !important;
+    border-color: var(--color-sun);
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.1);
+}
+
+.form-control::placeholder {
+    color: #adb5bd !important;
+    opacity: 0.7;
+}
+
+/* Icono calendario blanco */
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+/* Hover effects for Link Cards */
+.hover-effect {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.hover-effect:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-sun) !important;
+}
