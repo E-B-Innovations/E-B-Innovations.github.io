@@ -1,282 +1,349 @@
-document.addEventListener("DOMContentLoaded", function () {
+/* PJUD5 · Consola de Turno — lógica de plantillas y modales.
+   Vanilla JS, sin dependencias. */
+'use strict';
 
-    // ==========================================
-    // 1. GESTIÓN DE TEMAS (COLORES)
-    // ==========================================
-    const themeSelector = document.getElementById('themeSelector');
+document.addEventListener('DOMContentLoaded', () => {
 
-    function applyTheme(themeName) {
-        document.documentElement.setAttribute('data-theme', themeName);
-        localStorage.setItem('selectedTheme', themeName);
-    }
-
-    const savedTheme = localStorage.getItem('selectedTheme');
-    const availableThemes = ['default', 'aura', 'magma', 'botanical', 'synthwave', 'slate'];
-
-    if (savedTheme && availableThemes.includes(savedTheme)) {
-        applyTheme(savedTheme);
-        if (themeSelector) themeSelector.value = savedTheme;
-    } else {
-        applyTheme('default');
-        if (themeSelector) themeSelector.value = 'default';
-    }
-
-    if (themeSelector) {
-        themeSelector.addEventListener('change', (e) => applyTheme(e.target.value));
-    }
-
-    // ==========================================
-    // 2. PIN DE SEGURIDAD (LÓGICA DE ACCESO)
-    // ==========================================
-    const pinModalElement = document.getElementById('pinModal');
-    const pinInput = document.getElementById("pinInput");
-    const errorMsg = document.getElementById("errorMsg");
-    const btnVerificar = document.getElementById("btnVerificarPin");
-    const magicButton = document.getElementById("magicButton"); // El botón invisible
-
-    if (pinModalElement) {
-        // Iniciar modal en modo estático (no se cierra con clic afuera ni ESC)
-        const pinModal = new bootstrap.Modal(pinModalElement, { backdrop: 'static', keyboard: false });
-        pinModal.show();
-
-        // Función centralizada para conceder acceso y limpiar el modal
-        function grantAccess() {
-            console.log("Acceso concedido."); // Log para depuración
-            pinModal.hide();
-            
-            // Limpieza forzada de residuos de Bootstrap
-            setTimeout(() => {
-                document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
-                document.body.classList.remove('modal-open');
-                document.body.style.overflow = 'auto';
-                document.body.style.paddingRight = '';
-            }, 300); 
-        }
-
-        // Verificación estándar por PIN
-        function verificarPIN() {
-            const PIN_CORRECTO = "pjud5upg";
-            if (pinInput.value === PIN_CORRECTO) {
-                grantAccess();
-            } else {
-                errorMsg.classList.remove('d-none');
-                errorMsg.innerText = "PIN incorrecto.";
-                pinInput.value = "";
-                pinInput.focus();
-            }
-        }
-
-        // Listeners estándar
-        if (btnVerificar) btnVerificar.addEventListener("click", verificarPIN);
-        
-        if (pinInput) {
-            pinInput.addEventListener("keypress", (e) => { if (e.key === "Enter") verificarPIN(); });
-            pinModalElement.addEventListener('shown.bs.modal', () => pinInput.focus());
-        }
-
-        // === LISTENER DEL BOTÓN MÁGICO ===
-        if (magicButton) {
-            console.log("Botón mágico inicializado."); // Log para confirmar carga
-            magicButton.addEventListener("click", (e) => {
-                e.stopPropagation(); // Evita que el clic se propague al modal
-                console.log("Botón mágico presionado.");
-                grantAccess();
-            });
-        } else {
-            console.error("No se encontró el botón mágico en el DOM.");
-        }
-    }
-
-    // ==========================================
-    // 3. LÓGICA DE COPIADO Y MODALES
-    // ==========================================
-    let currentButton = null;
-
-    document.querySelectorAll('[data-bs-toggle="modal"]').forEach(btn => {
-        btn.addEventListener('click', () => currentButton = btn);
-    });
-
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            let text = btn.getAttribute('data-text');
-            if (btn.getAttribute('data-type') === 'dynamic') text = procesarTextoDinamico(text);
-            copiarAlPortapapeles(text, btn);
-        });
-    });
-
-    // --- CONFIGURACIÓN DE MODALES ---
-
-    function setupModalAction(btnId, modalId, processDataFn) {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-
-        btn.addEventListener('click', () => {
-            if (!currentButton) return;
-            const finalCookie = processDataFn();
-
-            if (finalCookie) {
-                const finalText = procesarTextoDinamico(finalCookie);
-                copiarAlPortapapeles(finalText, currentButton);
-
-                const modalEl = document.getElementById(modalId);
-                const modal = bootstrap.Modal.getInstance(modalEl);
-                modal.hide();
-
-                modalEl.querySelectorAll('input, textarea').forEach(input => input.value = '');
-            } else {
-                alert('Por favor, complete todos los campos.');
-            }
-        });
-    }
-
-    // Modales estándar
-    setupModalAction('saveDateTime', 'dateTimeModal', () => {
-        const date = document.getElementById('inputDate').value;
-        const time = document.getElementById('inputTime').value;
-        if (!date || !time) return null;
-        const [y, m, d] = date.split('-');
-        return currentButton.getAttribute('data-comment').replace('XX/XX/XXXX', `${d}/${m}/${y}`).replace('XX:XX', time);
-    });
-
-    setupModalAction('saveRecoordina', 'recoordinaModal', () => {
-        const time = document.getElementById('inputRecoordinaTime').value;
-        if (!time) return null;
-        return currentButton.getAttribute('data-comment').replace('xx:xx', time);
-    });
-
-    setupModalAction('saveDatosEquipo', 'datosEquipoModal', () => {
-        const fields = ['modelo', 'serie', 'telefono', 'nombre', 'direccion', 'dependencia'];
-        let text = currentButton.getAttribute('data-comment');
-        for (const f of fields) {
-            const val = document.getElementById('input' + f.charAt(0).toUpperCase() + f.slice(1)).value;
-            if (!val) return null;
-            text = text.replace(`{${f}}`, val);
-        }
-        return text;
-    });
-
-    setupModalAction('saveEquipoFueraContrato', 'equipoFueraContratoModal', () => {
-        const mod = document.getElementById('inputModeloFuera').value;
-        const ser = document.getElementById('inputSerieFuera').value;
-        if (!mod || !ser) return null;
-        return currentButton.getAttribute('data-comment').replace('{modelo}', mod).replace('{serie}', ser);
-    });
-
-    // ==========================================
-    // 4. MODALES DE SOLUCIÓN CON PLANTILLAS (DUAL LOGIC)
-    // ==========================================
-    const plantillas = {
-        'garantia': `-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se aplica bat de configuración.\n-Se configura SIAGJ(Se habilitan módulos y complementos).\n-Se configura Gestión Penal\n-se activa Office 365.\n-Se configura Word en modo de Compatibilidad.`,
-        'civil': `-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se reinstala Java 231.\n-Se aplica bat de configuración.\n-Se configura SITCI(Se habilitan módulos y complementos).\n-Se agrega DLL AmiOffice.\n-se activa Office 365.`,
-        'letras': `-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se aplica bat de configuración.\n-Se reinstala Java 231.\n-Se configuran Sistemas Judiciales.\n-Se optimiza Google Chrome.`,
-        'monito': `- Se realiza instalación de Monito web.\n- Se realiza configuración de Monito Web.\n- Se instala PDF24.\n- Se envía correo a soporte registro civil.\n- Se agrega vista de compatibilidad.`,
-        'pdf': `-Se instala versión estable de Adobe Reader DC.\n-Se deshabilitan actualizaciones automáticas.`,
-        'impresora': `- Se realiza instalación de driver de impresora.\n- Se realiza configuración de impresora.\n- Se revisan valores de impresión.\n- Se realiza configuración de bandejas.`,
-        'perfil': `- Se realiza habilitación de perfil.\n- Se migra data a disco d.\n- Se ejecuta bat de configuración.\n- Se habilitan complementos.\n- Se realiza configuración de aplicativos.\n- Se realiza configuración de correo.`
+    /* ---------- Datos ---------- */
+    const TEMPLATES = {
+        garantia: "-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se aplica bat de configuración.\n-Se configura SIAGJ(Se habilitan módulos y complementos).\n-Se configura Gestión Penal\n-se activa Office 365.\n-Se configura Word en modo de Compatibilidad.",
+        civil: "-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se reinstala Java 231.\n-Se aplica bat de configuración.\n-Se configura SITCI(Se habilitan módulos y complementos).\n-Se agrega DLL AmiOffice.\n-se activa Office 365.",
+        letras: "-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se aplica bat de configuración.\n-Se reinstala Java 231.\n-Se configuran Sistemas Judiciales.\n-Se optimiza Google Chrome.",
+        monito: "- Se realiza instalación de Monito web.\n- Se realiza configuración de Monito Web.\n- Se instala PDF24.\n- Se envía correo a soporte registro civil.\n- Se agrega vista de compatibilidad.",
+        pdf: "-Se instala versión estable de Adobe Reader DC.\n-Se deshabilitan actualizaciones automáticas.",
+        impresora: "- Se realiza instalación de driver de impresora.\n- Se realiza configuración de impresora.\n- Se revisan valores de impresión.\n- Se realiza configuración de bandejas.",
+        perfil: "- Se realiza habilitación de perfil.\n- Se migra data a disco d.\n- Se ejecuta bat de configuración.\n- Se habilitan complementos.\n- Se realiza configuración de aplicativos.\n- Se realiza configuración de correo.",
+        correo: "-Se configura perfil de correo.\n-Se realiza configuración de servidor de entrada y salida.\n-Se configura PST.",
+        sitfa: "-Se borran templates y plantillas.\n-Se Reset de Word.\n-Se reinstala Java 231.\n-Se aplica bat de configuración.\n-Se configura SITFA(Se habilitan módulos y complementos).\n-Se establece ProcessControl para abrir documentos \".do\"",
+        remoto: "-Se aplica procedimiento de escritorio remoto.\n-Se deshabilita IPV6.\n-Se configura proxy.\n-Se restablece red.\n-Se reinicia equipo.",
+        custom: ""
     };
 
-    // LOGICA A: SOLUCIONADO CON VERIFICACIÓN
-    document.querySelectorAll('.btn-template-con').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const nom = document.getElementById('inputNombreVerif').value;
-            const mod = document.getElementById('inputModeloCon').value;
-            const ser = document.getElementById('inputSerieCon').value;
-            const notaExtra = document.getElementById('inputProcedimiento').value;
-            const key = btn.getAttribute('data-key');
+    const TPL_BUTTONS = [
+        ['garantia', 'GARANTÍA'], ['civil', 'CIVIL'], ['letras', 'LETRAS'],
+        ['monito', 'MONITO'], ['pdf', 'PDF'], ['impresora', 'IMPRESORA'],
+        ['correo', 'CORREO'], ['sitfa', 'FAMILIA'], ['remoto', 'REMOTO'],
+        ['perfil', 'PERFIL'], ['custom', 'PERSONALIZADO']
+    ];
 
-            let procedimientoTexto = plantillas[key];
-            if (notaExtra && notaExtra.trim() !== "") procedimientoTexto += `\n- Nota: ${notaExtra}`;
+    const MODEL_OPTIONS = {
+        'Computadores': [
+            ['HP Pro SFF 400 G9 Desktop PC', 'HP Pro SFF 400 G9'],
+            ['HP ProDesk 600 G6 Small Form Factor', 'HP ProDesk 600 G6'],
+            ['HP ProDesk 600 G5 SFF', 'HP ProDesk 600 G5'],
+            ['HP ProDesk 600 G4 SFF', 'HP ProDesk 600 G4'],
+            ['HP ProDesk 600 G1 SFF', 'HP ProDesk 600 G1'],
+            ['HP ProBook 440 14 inch G10 Notebook', 'HP ProBook 440 G10'],
+            ['HP EliteBook 840 G8 Notebook PC', 'HP EliteBook 840 G8'],
+            ['HP EliteBook 840 G5 Notebook PC', 'HP EliteBook 840 G5']
+        ],
+        'Impresoras': [
+            ['HP LASER JET MANAGED E40040DN', 'HP E40040DN'],
+            ['HP LaserJet MFP E62655', 'HP E62655'],
+            ['HP LaserJet 408dn', 'HP 408dn'],
+            ['Samsung ProXpress 4020ND', 'Samsung 4020ND']
+        ]
+    };
 
-            if (!nom || !mod || !ser) { alert("Por favor ingrese Nombre, Modelo y Serie."); return; }
+    const $ = id => document.getElementById(id);
 
-            const textoFinal = `Buenos días se revisa el requerimiento y se realiza el siguiente procedimiento:\n\n${procedimientoTexto}\n\nSe realizan pruebas en paralelo con usuario NOMBRE: ${nom} \nEquipo este operativo según revisión realizada por usuario.\nModelo: ${mod} serie: ${ser}`;
-            const textoProcesado = procesarTextoDinamico(textoFinal);
+    /* ---------- Construcción de selects y rejillas (deduplicado) ---------- */
+    const buildModelSelect = (sel) => {
+        const frag = document.createDocumentFragment();
+        const first = new Option('Seleccione Modelo *', '');
+        first.disabled = true; first.selected = true;
+        frag.append(first);
+        for (const [group, items] of Object.entries(MODEL_OPTIONS)) {
+            const og = document.createElement('optgroup');
+            og.label = group;
+            for (const [value, label] of items) og.append(new Option(label, value));
+            frag.append(og);
+        }
+        frag.append(new Option('Otro (Personalizado)', 'custom'));
+        sel.append(frag);
+    };
 
-            copiarAlPortapapeles(textoProcesado, btn);
-            cerrarModal('solucionadoConModal', ['inputProcedimiento', 'inputNombreVerif', 'inputModeloCon', 'inputSerieCon']);
+    ['Con', 'Sin', 'Fuera'].forEach(suffix => {
+        const sel = $(`selectModelo${suffix}`);
+        if (!sel) return;
+        buildModelSelect(sel);
+        sel.addEventListener('change', () => {
+            const custom = $(`inputModelo${suffix}Custom`);
+            const isCustom = sel.value === 'custom';
+            custom.classList.toggle('u-hidden', !isCustom);
+            if (isCustom) custom.focus();
+            else custom.value = '';
         });
     });
 
-    // LOGICA B: SOLUCIONADO SIN VERIFICACIÓN
-    document.querySelectorAll('.btn-template-sin').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const mod = document.getElementById('inputModeloSin').value;
-            const ser = document.getElementById('inputSerieSin').value;
-            const notaExtra = document.getElementById('inputProcedimientoSin').value;
-            // Nota: ignoramos el nombre en "sin verificación" para el texto final, pero lo pedimos por si acaso
-            const key = btn.getAttribute('data-key');
-
-            if (!mod || !ser) { alert("Por favor ingrese Modelo y Serie."); return; }
-
-            let procedimientoTexto = plantillas[key];
-            if (notaExtra && notaExtra.trim() !== "") procedimientoTexto += `\n- Nota: ${notaExtra}`;
-
-            const textoFinal = `Buenos días se revisa el requerimiento y se realiza el siguiente procedimiento:\n\n${procedimientoTexto}\n\nSe realizan pruebas tecnicas en el equipo con cuentas de prueba de MDA, ya que usuario no cuenta con disponibilidad para realizar las pruebas y en caso de que el problema persista se le solicita objetar requerimiento.\nModelo: ${mod} serie: ${ser}`;
-            const textoProcesado = procesarTextoDinamico(textoFinal);
-
-            copiarAlPortapapeles(textoProcesado, btn);
-            cerrarModal('solucionadoSinModal', ['inputProcedimientoSin', 'inputNombreSin', 'inputModeloSin', 'inputSerieSin']);
-        });
+    document.querySelectorAll('.tplgrid').forEach(grid => {
+        const suffix = grid.dataset.tplGroup === 'con' ? 'Con' : 'Sin';
+        for (const [key, label] of TPL_BUTTONS) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'chip';
+            btn.dataset.key = key;
+            btn.textContent = label;
+            btn.addEventListener('click', () => handleSolution(btn, suffix === 'Con'));
+            grid.append(btn);
+        }
     });
 
-    // Helper para cerrar modales complejos
-    function cerrarModal(modalId, inputIds) {
+    /* ---------- Tema ---------- */
+    const themeSelector = $('themeSelector');
+    const applyTheme = (t) => {
+        document.documentElement.setAttribute('data-theme', t);
+        try { localStorage.setItem('selectedTheme', t); } catch (_) { /* sin storage */ }
+    };
+    let savedTheme = 'default';
+    try { savedTheme = localStorage.getItem('selectedTheme') || 'default'; } catch (_) { }
+    applyTheme(savedTheme);
+    themeSelector.value = savedTheme;
+    themeSelector.addEventListener('change', e => applyTheme(e.target.value));
+
+    /* ---------- Hora y saludo ---------- */
+
+    const greetingNow = () => new Date().getHours() < 12 ? 'Buenos días' : 'Buenas tardes';
+    const timeNow = () => new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false });
+    const dateNow = () => new Date().toLocaleDateString('es-CL');
+
+    /* ---------- Clipboard (con fallback) ---------- */
+    const writeClipboard = (text) => {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+        return new Promise((resolve, reject) => {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+            document.body.append(ta);
+            ta.select();
+            try { document.execCommand('copy') ? resolve() : reject(new Error('execCommand')); }
+            catch (err) { reject(err); }
+            finally { ta.remove(); }
+        });
+    };
+
+    const flashCopied = (btn) => {
+        if (btn.dataset.busy) return;
+        btn.dataset.busy = '1';
+        const originalHtml = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.textContent = '¡Copiado!';
         setTimeout(() => {
-            const modal = bootstrap.Modal.getInstance(document.getElementById(modalId));
-            if(modal) modal.hide();
-            inputIds.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) el.value = '';
-            });
-        }, 500);
-    }
+            btn.innerHTML = originalHtml;
+            btn.classList.remove('copied');
+            delete btn.dataset.busy;
+        }, 1000);
+    };
 
-    // ==========================================
-    // 5. UTILIDADES
-    // ==========================================
+    const copyToClipboard = (text, btn) =>
+        writeClipboard(text).then(() => flashCopied(btn)).catch(() => alert('No se pudo copiar'));
 
-    function procesarTextoDinamico(text) {
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const greeting = hours < 12 ? "Buenos días" : "Buenas tardes";
+    const copyAndClose = (text, modal) => {
+        writeClipboard(text).then(() => {
+            closeModal(modal);
+            modal.querySelectorAll('input:not([type=hidden]), textarea').forEach(i => { i.value = ''; });
+            modal.querySelectorAll('select').forEach(s => { s.selectedIndex = 0; });
+            modal.querySelectorAll('.u-hidden').forEach(e => e.classList.add('u-hidden'));
+        }).catch(() => alert('No se pudo copiar'));
+    };
 
-        let processed = text.replace(/Buenos \(días, tardes\)/gi, greeting).replace(/Buenos días/gi, greeting);
-        if (processed.includes('XX:XX') && !text.includes('xx:xx')) {
-            processed = processed.replace(/XX:XX/g, `${String(hours).padStart(2, '0')}:${minutes}`);
+    const processModal = (modal, generator) => {
+        const text = generator();
+        if (text) copyAndClose(text, modal);
+    };
+
+    const alertFocus = (msg, el) => { alert(msg); el.focus(); };
+
+    /* ---------- Modales (dialog nativo) ---------- */
+    let currentTrigger = null;
+
+    const openModal = (modal, trigger) => {
+        currentTrigger = trigger;
+        modal.showModal();
+        const first = modal.querySelector('input, select, textarea');
+        if (first) first.focus();
+    };
+
+    const closeModal = (modal) => modal.close();
+
+    document.addEventListener('click', (e) => {
+        const opener = e.target.closest('[data-modal-open]');
+        if (opener) {
+            const modal = $(opener.dataset.modalOpen);
+            if (modal) openModal(modal, opener);
+            return;
         }
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const year = now.getFullYear();
-        processed = processed.replace(/XX\/XX\/XXXX/g, `${day}/${month}/${year}`);
-        return processed;
-    }
+        const closer = e.target.closest('[data-modal-close]');
+        if (closer) closeModal(closer.closest('dialog'));
+    });
 
-    function copiarAlPortapapeles(text, btnElement) {
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = btnElement.textContent;
-            const originalClass = btnElement.className;
-            btnElement.textContent = '¡Copiado!';
-            btnElement.classList.remove('btn-outline-light', 'btn-outline-info', 'btn-outline-warning', 'btn-outline-danger', 'btn-outline-success', 'btn-outline-primary', 'btn-outline-secondary');
-            btnElement.classList.add('btn-success');
+    // Cierre al pulsar el backdrop (clic fuera de la caja)
+    document.querySelectorAll('dialog.modal').forEach(dlg => {
+        dlg.addEventListener('click', (e) => {
+            if (dlg.hasAttribute('data-static')) return;
+            if (e.target === dlg) closeModal(dlg);
+        });
+    });
 
-            setTimeout(() => {
-                btnElement.textContent = originalText;
-                btnElement.className = originalClass;
-            }, 2000);
-        }).catch(err => { console.error('Error al copiar', err); alert('Error portapapeles.'); });
-    }
+    /* ---------- Acciones de copiado directo ---------- */
+    document.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.copy-btn');
+        if (!copyBtn) return;
+        let text = copyBtn.getAttribute('data-text');
+        const isDynamic = copyBtn.getAttribute('data-type') === 'dynamic';
+        const isGreeting = copyBtn.getAttribute('data-greeting') === 'true';
 
-    window.onscroll = function () {
-        const scrollBtn = document.getElementById("scroll-button");
-        if (scrollBtn) {
-            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                scrollBtn.style.display = "block";
-                setTimeout(() => scrollBtn.style.opacity = "1", 10);
-            } else {
-                scrollBtn.style.opacity = "0";
-                setTimeout(() => scrollBtn.style.display = "none", 500);
+        if (isDynamic || isGreeting) {
+            text = text
+                .replace('XX:XX', timeNow())
+                .replace('XX/XX/XXXX', dateNow())
+                .replace('XX/XX', dateNow().split('/').slice(0, 2).join('/'))
+                .replace(/Buenos días|Buenas tardes/gi, greetingNow());
+        }
+        copyToClipboard(text, copyBtn);
+    });
+
+    /* ---------- Guardados por modal ---------- */
+    const modalOf = (btn) => btn.closest('dialog');
+
+    const triggerFor = (modalId) =>
+        document.querySelector(`[data-modal-open="${modalId}"]`);
+
+    document.addEventListener('click', (e) => {
+        const id = e.target.id;
+
+        if (id === 'saveDatosEquipo') return processModal(modalOf(e.target), () => {
+            const val = i => $(i).value;
+            return `---DATOS DE EQUIPO---\nModelo: ${val('inputModelo')} Serie: ${val('inputSerie')}\n---DATOS DE USUARIO---\nTeléfono: ${val('inputTelefono')}\nNombre: ${val('inputNombre')}\nDirección: ${val('inputDireccion')}\nDependencia: ${val('inputDependencia')}`;
+        });
+
+        if (id === 'saveDateTime') return processModal(modalOf(e.target), () => {
+            const d = $('inputDate').value;
+            const tInput = $('inputTime').value;
+            if (!d) return null;
+            const timeFormatted = tInput || '00:00';
+            const df = d.split('-').reverse().slice(0, 2).join('/');
+            return currentTrigger.getAttribute('data-comment')
+                .replace('XX/XX/XXXX', df).replace('XX:XX', timeFormatted).replace('XX/XX', df);
+        });
+
+        if (id === 'saveCoordVisita') return processModal(modalOf(e.target), () => {
+            const u = $('inputCoordUser').value;
+            const d = $('inputCoordDate').value;
+            const tInput = $('inputCoordTime').value;
+            if (!d) return null;
+            const timeFormatted = tInput || '00:00';
+            const df = d.split('-').reverse().slice(0, 2).join('/');
+            return `SEGÚN LO CONVERSADO TELEFÓNICAMENTE SE COORDINA CON USUARIO ${u.toUpperCase()} VISITA DE TÉCNICO A TERRENO PARA EL DIA ${df} A LAS ${timeFormatted}`;
+        });
+
+        if (id === 'saveRecoordina') return processModal(modalOf(e.target), () => {
+            const tInput = $('inputRecoordinaTime').value;
+            const timeFormatted = tInput || '00:00';
+            return currentTrigger.getAttribute('data-comment')
+                .replace('XX:XX', timeNow()).replace('xx:xx', timeFormatted);
+        });
+
+        if (id === 'saveEquipoFueraContrato') return processModal(modalOf(e.target), () => {
+            const selModel = $('selectModeloFuera');
+            const modelo = selModel.value === 'custom'
+                ? $('inputModeloFueraCustom').value.trim()
+                : selModel.value;
+            if (!selModel.value) return alertFocus('Seleccione un MODELO', selModel), null;
+            if (selModel.value === 'custom' && !modelo) return alertFocus('Escriba el modelo personalizado', $('inputModeloFueraCustom')), null;
+            const tpl = currentTrigger.getAttribute('data-comment');
+            return tpl.replace('{modelo}', modelo)
+                      .replace('{serie}', $('inputSerieFuera').value);
+        });
+
+        if (id === 'saveCorreoNoContacto' || id === 'btnSinNumero') return processModal(modalOf(e.target), () => {
+            const req = $('inputReqCorreo').value || 'xxxxxx';
+            const tel = $('inputTelCorreo').value || 'xxxxxxx';
+            const reason = id === 'saveCorreoNoContacto'
+                ? `debido a que he realizado 3 intentos de llamado al número ${tel} , usuario no contesta.`
+                : 'ya que no posee número de contacto.';
+            return `Buenos días, me comunico con usted para solicitar número de contacto para atender el Requerimiento Nº ${req} ${reason} De no poder proporcionar esta información en las próximas 2 horas hábiles, el requerimiento quedará “Anulado” y si problema persiste podrá generar un nuevo folio.`;
+        });
+
+        if (id === 'saveDerivacionResidente') return processModal(modalOf(e.target), () => {
+            const req = $('inputReqDeriv').value || 'XXXXXX';
+            const tel = $('inputTelDeriv').value || 'XXXXXXXXXX';
+            return `Me comunico con usted para solicitar número de contacto para atender el requerimiento N° ${req}  debido a que he realizado 3 intentos de llamado al número  indicado ${tel} no contesta.  Se deriva requerimiento a técnicos residentes.`;
+        });
+
+        if (id === 'saveTelOnly') return processModal(modalOf(e.target), () => {
+            let tpl = currentTrigger.getAttribute('data-template');
+            const noGreeting = currentTrigger.getAttribute('data-greeting') === 'false';
+            const tel = $('inputTelOnly').value;
+
+            if (tel) tpl = tpl.replace(/X{5,}/gi, tel);
+            if (/xx:xx/gi.test(tpl)) tpl = tpl.replace(/xx:xx/gi, timeNow());
+            if (!noGreeting && /Buenos días|Buenas tardes/i.test(tpl)) {
+                tpl = tpl.replace(/Buenos días|Buenas tardes/gi, greetingNow());
             }
+            return tpl;
+        });
+    });
+
+    /* ---------- Soluciones (con/sin verificación) ---------- */
+    function handleSolution(btn, isVerif) {
+        const suffix = isVerif ? 'Con' : 'Sin';
+        const nameEl = $(isVerif ? 'inputNombreVerif' : 'inputNombreSin');
+        const selModel = $(`selectModelo${suffix}`);
+        const custModel = $(`inputModelo${suffix}Custom`);
+        const serEl = $(`inputSerie${suffix}`);
+        const noteEl = $(isVerif ? 'inputProcedimiento' : 'inputProcedimientoSin');
+
+        const modelo = selModel.value === 'custom' ? custModel.value.trim() : selModel.value;
+        if (!selModel.value) return alertFocus('Seleccione un MODELO', selModel);
+        if (selModel.value === 'custom' && !modelo) return alertFocus('Escriba el modelo personalizado', custModel);
+        if (isVerif && !nameEl.value.trim()) return alertFocus('Ingrese el NOMBRE del usuario', nameEl);
+
+        const tpl = TEMPLATES[btn.dataset.key] || '';
+        const note = noteEl.value.trim();
+
+        let final = `${greetingNow()} se revisa el requerimiento y se realiza el siguiente procedimiento${!isVerif ? ' (Validación técnica)' : ''}:\n\n`;
+        if (btn.dataset.key === 'custom') {
+            if (note) final += `${note}\n`;
+        } else {
+            if (tpl) final += `${tpl}\n`;
+            if (note) final += `- ${note}\n`;
+        }
+        final += isVerif
+            ? `\nSe realizan pruebas en paralelo con usuario NOMBRE: ${nameEl.value.trim()}\nEquipo está operativo según revisión realizada por usuario.\n`
+            : `\nSe realizan pruebas tecnicas en el equipo con cuentas de prueba de MDA, ya que usuario no cuenta con disponibilidad para realizar las pruebas y en caso de que el problema persista se le solicita objetar requerimiento.\n`;
+        final += `Modelo: ${modelo}\nserie: ${serEl.value.trim() || 'S/N'}`;
+
+        copyAndClose(final, modalOf(btn));
+    }
+
+    /* ---------- Botón volver arriba ---------- */
+    const scrollBtn = $('scroll-button');
+    const onScroll = () => scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ---------- PIN ---------- */
+    const pinModal = $('pinModal');
+    const pinInput = $('pinInput');
+    const checkPin = () => {
+        if (pinInput.value === 'pjud5upg') {
+            pinModal.close();
+        } else {
+            $('errorMsg').hidden = false;
+            pinInput.value = '';
         }
     };
+    pinModal.showModal();
+    pinModal.addEventListener('cancel', e => e.preventDefault());
+    $('btnVerificarPin').addEventListener('click', checkPin);
+    pinInput.addEventListener('keypress', e => { if (e.key === 'Enter') checkPin(); });
+
+    let magicClicks = 0;
+    $('magicButton').addEventListener('click', () => {
+        if (++magicClicks === 5) pinModal.close();
+    });
 });
